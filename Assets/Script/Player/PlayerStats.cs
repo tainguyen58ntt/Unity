@@ -166,8 +166,8 @@ public class PlayerStats : MonoBehaviour
         CurrentMagnet = characterData.Magnet;
 
         spawnWeapon(characterData.StartingWeapon);
-        spawnWeapon(secondWeaponTest);
-        spawnPassiveItem(firstPassiveItemsTest);
+        //spawnWeapon(secondWeaponTest);
+        //spawnPassiveItem(firstPassiveItemsTest);
         spawnPassiveItem(secondPassiveItemTest);
 
 
@@ -182,6 +182,8 @@ public class PlayerStats : MonoBehaviour
         GameManager.instance.currentMightDisplay.text = "Might: " + currentMight;
         GameManager.instance.currentProjectileSpeedDisplay.text = "Project Speed: " + currentProjectileSpeed;
         GameManager.instance.currentMagnetDisplay.text = "Magnet: " + currentMagnet;
+
+        GameManager.instance.AssignChosenCharacterUI(characterData);
     }
 
 
@@ -222,6 +224,8 @@ public class PlayerStats : MonoBehaviour
 
             }
             experienceCap += experienceCapIncrease;
+
+            GameManager.instance.StartLevelUp(); 
         }
     }
     public void TakeDamge(float dmg)
@@ -242,6 +246,8 @@ public class PlayerStats : MonoBehaviour
     {
         if (!GameManager.instance.isGameOver)
         {
+            GameManager.instance.AssignLevelReachedUI(level);
+            GameManager.instance.AssignChosenWeaponAndPassiveItemsUI(inventory.weaponUISlots, inventory.passiveUISlots);
             GameManager.instance.Gameover();
         }
     }
