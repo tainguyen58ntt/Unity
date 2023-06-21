@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7478da11b78deb649bcc1288497e5975, type: 3}
   m_Name: Galic Weapon Level 2
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6433132823576699588, guid: 7d169ee04c71f5c49bbf5dd28ec9f4e2, type: 3}
+  prefab: {fileID: 6433132823576699588, guid: 789516244f1d00f409a0f40d2ef533e6, type: 3}
   damage: 5
   speed: 0
   cooldownDuration: 2.5
   pierce: 0
   level: 2
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 3591560511287028848, guid: e38891ce7320ef54b980ce52359e4fbb, type: 3}
   name: Garlic level 2
   description: Cooldown reduce by 2.5
   icon: {fileID: -510066802, guid: 68d41f2e08fdd6241a87d165eba8895d, type: 3}

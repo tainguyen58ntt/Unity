@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -144,6 +144,11 @@ public class PlayerStats : MonoBehaviour
     public int weaponIndex;
     public int passiveItemIndex;
 
+    [Header("UI")]
+    public Image healthBar;
+    public Image expBar;
+    public Text levelText;
+
     public GameObject secondWeaponTest;
     public GameObject firstPassiveItemsTest, secondPassiveItemTest;
 
@@ -172,7 +177,7 @@ public class PlayerStats : MonoBehaviour
 
 
     }
-    private void Start()
+     void Start()
     {
         experienceCap = levels[0].experienceCapIncrease;
 
@@ -184,6 +189,10 @@ public class PlayerStats : MonoBehaviour
         GameManager.instance.currentMagnetDisplay.text = "Magnet: " + currentMagnet;
 
         GameManager.instance.AssignChosenCharacterUI(characterData);
+
+        UpdateHealthBar();
+        UpdateExpBar();
+        UpdateLevelText();
     }
 
 
@@ -205,6 +214,7 @@ public class PlayerStats : MonoBehaviour
     {
         experience += amount;
         LevelUpchecker();
+        UpdateExpBar();
     }
 
     void LevelUpchecker()
@@ -224,9 +234,19 @@ public class PlayerStats : MonoBehaviour
 
             }
             experienceCap += experienceCapIncrease;
+            UpdateLevelText();
 
             GameManager.instance.StartLevelUp(); 
         }
+    }
+    void UpdateExpBar()
+    {
+        expBar.fillAmount = (float)experience / experienceCap;
+    }
+
+    void UpdateLevelText()
+    {
+        levelText.text = "LV " + level.ToString(); 
     }
     public void TakeDamge(float dmg)
     {
@@ -239,9 +259,17 @@ public class PlayerStats : MonoBehaviour
             {
                 Kill();
             }
+            UpdateHealthBar();
         }
 
     }
+
+    void UpdateHealthBar()
+    {
+        healthBar.fillAmount = currentHealth / characterData.MaxHealh;
+
+    }
+
     public void Kill()
     {
         if (!GameManager.instance.isGameOver)

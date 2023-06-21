@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
             if (chosenPassiveItemsData[i].sprite)
             {
                 chosenPassiveItemsUI[i].enabled = true;
-                chosenPassiveItemsUI[i].sprite = chosenPassiveItemsUI[i].sprite;
+                chosenPassiveItemsUI[i].sprite = chosenPassiveItemsData[i].sprite;
             }
             else
             {
