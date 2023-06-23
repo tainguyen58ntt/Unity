@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
+    //Sound Die
+    [SerializeField] private AudioSource deathSoundEffect;
+
     // Start is called before the first frame update
     public CharacterSctiptablObject characterData;
 
@@ -257,6 +260,7 @@ public class PlayerStats : MonoBehaviour
             isInvicible = true;
             if (CurrentHealth <= 0)
             {
+                deathSoundEffect.Play();
                 Kill();
             }
             UpdateHealthBar();
@@ -274,6 +278,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (!GameManager.instance.isGameOver)
         {
+            
             GameManager.instance.AssignLevelReachedUI(level);
             GameManager.instance.AssignChosenWeaponAndPassiveItemsUI(inventory.weaponUISlots, inventory.passiveUISlots);
             GameManager.instance.Gameover();
