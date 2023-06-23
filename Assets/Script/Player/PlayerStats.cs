@@ -290,6 +290,7 @@ public class PlayerStats : MonoBehaviour
                 CurrentHealth = characterData.MaxHealh;
             }
         }
+        healthBar.fillAmount = currentHealth / characterData.MaxHealh;
     }
 
     public void Recover()

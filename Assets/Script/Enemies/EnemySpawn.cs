@@ -30,7 +30,7 @@ public class EnemySpawn : MonoBehaviour
     public float waveInterval;
     public int enemiesAlive;
     public int maxEnemiesAllowed;
-    public bool maxEnemiesReached =false;
+    public bool maxEnemiesReached = false;
 
     [Header("Spawn Positions")]
     public List<Transform> relativeSpawnPoints;
@@ -47,13 +47,13 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentWaveCount < waves.Count &&  waves[currentWaveCount].spawnCount == 0)
+        if (currentWaveCount < waves.Count && waves[currentWaveCount].spawnCount == waves[currentWaveCount].waveQuota)
         {
             StartCoroutine(BeginNextWave());
         }
         spawnTimer += Time.deltaTime;
 
-        if(spawnTimer >= waves[currentWaveCount].spawnInterval)
+        if (spawnTimer >= waves[currentWaveCount].spawnInterval)
         {
             spawnTimer = 0f;
             SpawnEnimies();
@@ -67,6 +67,7 @@ public class EnemySpawn : MonoBehaviour
         {
             currentWaveCount++;
             CalculaWaveQuota();
+            IncreaseMaxEnemiesAllowed();
         }
     }
 
@@ -90,14 +91,14 @@ public class EnemySpawn : MonoBehaviour
             {
                 if (enemyGroup.spawnCount < enemyGroup.enemyCount)
                 {
-                    if(enemiesAlive >= maxEnemiesAllowed)
+                    if (enemiesAlive >= maxEnemiesAllowed)
                     {
                         maxEnemiesReached = true;
                         return;
                     }
 
                     Instantiate(enemyGroup.enemyPrefab, player.position + relativeSpawnPoints[Random.Range(0, relativeSpawnPoints.Count)].position, Quaternion.identity);
-                    
+
                     enemyGroup.spawnCount++;
                     waves[currentWaveCount].spawnCount++;
                     enemiesAlive++;
@@ -112,5 +113,9 @@ public class EnemySpawn : MonoBehaviour
     public void OnEnemyKilled()
     {
         enemiesAlive--;
+    }
+    void IncreaseMaxEnemiesAllowed()
+    {
+        maxEnemiesAllowed += 5;
     }
 }
